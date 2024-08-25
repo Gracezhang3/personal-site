@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* Reset styles */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: "Playfair Display", serif;
+            background: #141414;
+            color: #fff;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            background: #131313;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            position: fixed;
+            top: 0;
+            z-index: 999;
+            width: 100%;
+            font-family: "Playfair Display", serif;
+        }
+
+        .navbar__container {
+            display: flex;
+            justify-content: space-between;
+            height: 80px;
+            z-index: 1;
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 50px;
+            font-family: "Playfair Display", serif;
+        }
+
+        #navbar__logo {
+            background-color: #ff8177;
+            background-image: linear-gradient(to top, #fff 0%, #fff 100%);
+            background-size: 100%;
+            -webkit-background-clip: text;
+            -moz-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -moz-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 2rem;
+            font-family: "Playfair Display", serif;
+            font-weight: 900;
+        }
+
+        .navbar__menu {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            text-align: center;
+            font-family: "Playfair Display", serif;
+        }
+
+        .navbar__item {
+            height: 80px;
+            font-family: "Playfair Display", serif;
+        }
+
+        .navbar__links {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            padding: 0 1rem;
+            height: 100%;
+            font-family: "Playfair Display", serif;
+            font-weight: 400;
+        }
+
+        .navbar__btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 1rem;
+            width: 100%;
+            font-family: "Playfair Display", serif;
+            font-weight: 400;
+        }
+
+        .button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            padding: 8px 16px; /* Smaller button */
+            height: 100%;
+            width: auto;
+            border: none;
+            outline: none;
+            border-radius: 4px;
+            background: #9492de;
+            color: #fff;
+            font-family: "Playfair Display", serif;
+            font-weight: 700;
+        }
+
+        .button:hover {
+            background: #4837ff;
+            transition: all 0.3s ease;
+        }
+
+        .navbar__links:hover {
+            color: #4837ff;
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile Menu Toggle Button */
+        .navbar__toggle {
+            display: none;
+            cursor: pointer;
+            z-index: 1000; /* Ensure the toggle button is above other elements */
+        }
+
+        /* Bars inside the mobile toggle button */
+        .navbar__toggle .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            transition: all 0.3s ease-in-out;
+            background-color: #fff;
+        }
+
+        /* Styles for when the toggle is active */
+        .navbar__toggle.is-active .bar:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .navbar__toggle.is-active .bar:nth-child(2) {
+            opacity: 0;
+        }
+        .navbar__toggle.is-active .bar:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile menu active state */
+        .navbar__menu.active {
+            display: block;
+            position: absolute;
+            top: 80px;
+            right: 0;
+            background-color: #131313;
+            width: 100%;
+            text-align: right;
+            flex-direction: column;
+            font-family: "Playfair Display", serif;
+            font-weight: 400;
+        }
+
+        .navbar__menu.active .navbar__item {
+            width: 100%;
+            font-family: "Playfair Display", serif;
+        }
+
+        .navbar__menu.active .navbar__links {
+            display: block;
+            padding: 20px 30px;
+            text-align: right;
+            font-family: "Playfair Display", serif;
+        }
+
+        /* Main Section Styles */
+        .main {
+            background-color: #141414;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px; /* Added padding to offset the fixed navbar */
+            font-family: "Playfair Display", serif;
+            font-weight: 400;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            animation: moveStar 100s linear infinite; /* Slower star movement */
+        }
+
+        @keyframes moveStar {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-2000px);
+            }
+        }
+
+        .main__container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            justify-content: start;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 1300px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+            font-family: "Playfair Display", serif;
+        }
+
+        .main__content h1 {
+            font-size: 6rem;
+            background-color: #ff8177;
+            background-image: linear-gradient(to top, #9492de 0%, #fff 100%);
+            background-size: 100%;
+            -webkit-background-clip: text;
+            -moz-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -moz-text-fill-color: transparent;
+            margin: 0;
+            padding: 0;
+            transition: font-size 0.5s ease;
+            white-space: nowrap; /* Prevents line breaks */
+            font-family: "Playfair Display", serif;
+            font-weight: 900;
+        }
+
+        .main__content p {
+            font-size: 1.2rem;
+            margin: 0;
+            padding: 10px 0;
+            color: #fff;
+            font-family: "Playfair Display", serif;
+            font-weight: 400;
+        }
+
+        .main__img--container {
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+
+        .main__img--container img {
+            width: 400px; /* Increased size */
+            height: 400px; /* Increased size */
+            border-radius: 50%;
+            object-fit: cover; /* Crop the image instead of distorting */
+            transition: all 0.5s ease;
+        }
+
+        .main__img--container img.slide-in {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+
+        .main__img--container img.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .main__img--container img.slide-out {
+            transform: translateX(-100%) rotate(360deg);
+            opacity: 0;
+        }
+
+        /* About Section */
+        .about__content {
+            position: relative;
+            padding: 20px;
+            z-index: 1;
+        }
+
+        .about__content p {
+            position: relative;
+            z-index: 2; /* Ensure the text is above the pseudo-element */
+        }
+
+  /* Create a cloud-like blob using a pseudo-element */
+.about__content::before {
+    content: '';
+    position: absolute;
+    top: -50px; /* Adjust these values to position the cloud */
+    left: -50px;
+    right: -50px;
+    bottom: -50px;
+    background: rgba(255, 255, 255, 0.15); /* White with translucency */
+    border-radius: 18% 82% 17% 83% / 48% 43% 57% 52% ; /* Asymmetrical border radius with more bumps */
+    z-index: 1;
+    filter: blur(12px); /* Apply a blur effect to soften the edges */
+}
+
+
+
+        /* Resume Section Styles */
+        #resume {
+            background-color: #141414;
+            min-height: 100vh;
+            padding: 40px 20px; /* Added more space before and after */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            font-family: "Playfair Display", serif;
+        }
+
+        #resume h2 {
+            font-size: 4rem;
+            background-color: #ff8177;
+            background-image: linear-gradient(to top, #9492de 0%, #fff 100%);
+            background-size: 100%;
+            -webkit-background-clip: text;
+            -moz-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -moz-text-fill-color: transparent;
+            margin: 0;
+            padding-left: 20px;
+            margin-bottom: 2rem;
+            transition: font-size 0.5s ease;
+            font-family: "Playfair Display", serif;
+            font-weight: 900;
+        }
+
+        .skills-container {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px 0;
+            width: 100%;
+            margin-bottom: 20px;
+            scrollbar-width: thin; /* for Firefox */
+            scrollbar-color: #9492de #141414; /* thumb and track color */
+        }
+
+        .skills-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .skills-container::-webkit-scrollbar-thumb {
+            background-color: #9492de;
+            border-radius: 10px;
+        }
+
+        .skills-box {
+            margin: 10px;
+            padding: 10px 30px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            color: #fff;
+            text-align: center;
+            display: inline-block;
+            flex-shrink: 0;
+            width: 200px; /* Make all boxes the same width */
+            background-color: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.5); /* Transparent border */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-family: "Playfair Display", serif;
+            font-weight: 400;
+        }
+
+        .skills-box:first-child {
+            margin-left: 30px; /* Ensure the first box has some margin from the left */
+        }
+
+        .skills-box[data-level="proficient"]:hover {
+            background-color: rgba(148, 146, 222, 0.8);
+            border-color: rgba(148, 146, 222, 0.8);
+        }
+
+        .skills-box[data-level="intermediate"]:hover {
+            background-color: rgba(72, 55, 255, 0.8);
+            border-color: rgba(72, 55, 255, 0.8);
+        }
+
+        .skills-box[data-level="beginner"]:hover {
+            background-color: rgba(255, 129, 119, 0.8);
+            border-color: rgba(255, 129, 119, 0.8);
+        }
+
+        .skills-title {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 10px;
+            text-align: center;
+            font-family: "Playfair Display", serif;
+            font-weight: 700;
+        }
+
+        .help-box {
+            background-color: rgba(20, 20, 20, 0.8); /* Transparent black background */
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            position: absolute;
+            top: 10px;
+            font-family: "Playfair Display", serif;
+        }
+
+        .help-box p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .key-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            font-family: "Playfair Display", serif;
+            font-weight: 400;
+        }
+
+        .key-item {
+            display: flex;
+            align-items: center;
+            margin: 0 15px;
+        }
+
+        .key-item div {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .key-item span {
+            margin-left: 10px;
+            font-size: 1.2rem;
+            color: #fff;
+            font-family: "Playfair Display", serif;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+            100% {
+                transform: translate3d(-100%, 0, 0); /* Ensures smooth scrolling across the screen */
+            }
+        }
+
+        .marquee {
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: marquee 40s linear infinite; /* Adjusted speed for slower scrolling */
+        }
+
+        .resume-btn {
+            font-size: 1rem;
+            background-image: linear-gradient(to top, #9492de 0%, #9492de 100%);
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.35s;
+            outline: none;
+            overflow: hidden;
+            text-decoration: none;
+            font-family: "Playfair Display", serif;
+            font-weight: 700;
+        }
+
+        .resume-btn:hover {
+            background: #4837ff;
+        }
+
+        /* Projects Section Styles */
+/* Font consistency */
+.projects h2,
+    .project-blob-content h3,
+    .project-blob-content p {
+        font-family: "Playfair Display", serif;
+        font-weight: 400;
+    }
+
+    /* Projects Section Styles */
+
+    /* Font consistency */
+    .projects h2,
+    .project-blob-content h3,
+    .project-blob-content p {
+        font-family: "Playfair Display", serif;
+        font-weight: 400;
+    }
+
+    /* Projects Section Styles */
+    .projects {
+    background-color: #141414;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center the content vertically */
+    position: relative;
+    overflow: hidden;
+    padding: 0px; /* Reduced padding */
+    font-family: "Playfair Display", serif;
+    font-weight: 400;
+}
+
+
+    .projects h2 {
+        font-size: 4rem;
+        background-color: #ff8177;
+        background-image: linear-gradient(to top, #9492de 0%, #fff 100%);
+        background-size: 100%;
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -moz-text-fill-color: transparent;
+        margin: 0;
+        padding: 0;
+        margin-bottom: 2rem;
+        transition: font-size 0.5s ease;
+        font-family: "Playfair Display", serif;
+        font-weight: 900;
+    }
+
+    .projects__scroll-container {
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        text-align: center; /* Center the project blobs */
+    }
+
+    .projects__row {
+        display: flex;
+        flex-wrap: nowrap;
+        width: max-content;
+        margin: 0 auto; /* Center the row */
+        padding-bottom: 20px;
+    }
+
+    .project-blob {
+    position: relative;
+    width: 400px;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 50%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex-shrink: 0;
+    background-color: rgba(32, 32, 32, 0.8);
+    padding: 20px;
+    margin: 30px;
+}
+
+    .project-blob span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 2px solid black;
+        border-radius: 50%;
+        animation: blob-animate 6s linear infinite;
+        transition: background 0.3s ease, transform 0.3s ease;
+        background: transparent;
+    }
+
+    .project-blob span:nth-child(1) {
+        border-radius: 60% 40% 70% 30% / 50% 50% 60% 40%;
+    }
+
+    .project-blob span:nth-child(2) {
+        border-radius: 40% 60% 30% 70% / 50% 50% 60% 40%;
+        animation-duration: 4s;
+    }
+
+    .project-blob span:nth-child(3) {
+        border-radius: 30% 70% 40% 60% / 60% 40% 70% 30%;
+        animation-duration: 10s;
+    }
+
+    .project-blob:hover span {
+        background: rgba(255, 255, 255, 0.1);
+        transform: scale(1.1);
+    }
+
+    @keyframes blob-animate {
+        0% {
+            transform: rotate(0deg);
+            background: transparent; /* Ensure transparency */
+        }
+        100% {
+            transform: rotate(360deg);
+            background: transparent; /* Ensure transparency */
+        }
+    }
+
+    /* Initial project title visible, rest hidden */
+    .project-blob-content h3 {
+        margin-bottom: 0;
+        font-size: 1.8rem;
+        font-weight: 700;
+        z-index: 10;
+        position: relative;
+    }
+
+    .project-blob-content p,
+    .project-blob-content .github-btn,
+    .project-blob .content-background {
+        display: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    /* Hover to reveal content */
+    .project-blob:hover .project-blob-content h3 {
+        display: none;
+    }
+
+    .project-blob:hover .project-blob-content p,
+    .project-blob:hover .project-blob-content .github-btn,
+    .project-blob:hover .project-blob .content-background {
+        display: block;
+        opacity: 1;
+    }
+
+    /* Background for the text on hover */
+    .content-background {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 90%;
+        height: auto;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.6); /* Transparent gray background */
+        border-radius: 15px;
+        transform: translate(-50%, -50%);
+        z-index: 5;
+        color: #fff;
+    }
+
+    .project-blob-content p {
+        font-size: 1rem;
+        line-height: 1.5;
+        z-index: 10;
+        position: relative;
+    }
+
+    .project-blob-content .github-btn {
+        display: inline-block;
+        background-color: #9492de;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 700;
+        margin-top: 15px;
+        z-index: 10;
+        position: relative;
+    }
+
+    .project-blob-content .github-btn:hover {
+        background-color: #4837ff;
+    }
+
+    /* Hover image overlay for each blob with transparency */
+    .project-blob-1:hover {
+        background-image: url('images/filler.jpeg');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.85; /* Slight transparency */
+    }
+
+    .project-blob-2:hover {
+        background-image: url('images/LO.jpeg');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.85; /* Slight transparency */
+    }
+
+    .project-blob-3:hover {
+        background-image: url('images/3d.jpeg');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.85; /* Slight transparency */
+    }
+
+    .project-blob-4:hover {
+        background-image: url('images/heart.jpeg');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.85; /* Slight transparency */
+    }
+
+    .project-blob-5:hover {
+        background-image: url('images/line.png');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.85; /* Slight transparency */
+    }
+        /* Footer styles */
+        .footer {
+            background: #131313;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            overflow: hidden;
+            padding-top: 80px; /* Added padding to offset the fixed navbar */
+            font-family: "Playfair Display", serif;
+        }
+
+        .footer a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px; /* Ensure there's enough space between links */
+    font-family: "Playfair Display", serif;
+    position: relative; /* Ensure links are on top of other content */
+    z-index: 10; /* High z-index to ensure clickability */
+    padding: 8px 16px; /* Increase clickable area */
+    display: inline-block; /* Ensures proper spacing and alignment */
+}
+
+
+        .footer a:hover {
+            color: #4837ff;
+            transition: color 0.3s ease;
+        }
+
+        /* Contact Form Styles */
+        .contact__form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: "Playfair Display", serif;
+        }
+
+        .contact__form label {
+            color: #fff;
+            margin: 10px 0;
+            font-family: "Playfair Display", serif;
+        }
+
+        .contact__form input,
+        .contact__form textarea {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            width: 100%;
+            font-family: "Playfair Display", serif;
+        }
+
+        .contact__form button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #9492de;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-family: "Playfair Display", serif;
+            font-weight: 700;
+        }
+
+        .contact__form button:hover {
+            background: #4837ff;
+        }
+
+        .success-message {
+            color: #fff;
+            font-size: 1rem;
+            margin: 10px 0;
+            display: none;
+            font-family: "Playfair Display", serif;
+        }
+
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 960px) {
+            .main__container {
+                grid-template-columns: 1fr;
+                text-align: left;
+                padding: 0 20px;
+            }
+
+            .main__img--container {
+                margin-top: 2rem;
+                opacity: 0;
+                transform: scale(0);
+                height: 0;
+            }
+
+            .main__content h1 {
+                font-size: 3rem;
+                word-wrap: break-word;
+            }
+
+            .main__content h2 {
+                font-size: 1.5rem;
+                word-wrap: break-word;
+            }
+
+            .projects {
+                padding-top: 60px;
+            }
+
+            .project {
+                width: 90%;
+            }
+
+            .project-info h3 {
+                font-size: 1.2rem;
+            }
+
+            .project-info p {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media screen and (min-width: 961px) {
+            .main__img--container {
+                opacity: 1;
+                transform: scale(1);
+                height: auto;
+            }
+
+            .main__content h1 {
+                font-size: 6rem;
+            }
+
+            .main__content h2 {
+                font-size: 4rem;
+            }
+
+            .projects {
+                padding: 20px;
+            }
+
+            #resume {
+                padding-bottom: 190px;
+            }
+
+            .project {
+                width: 20%;
+            }
+
+            .project-info h3 {
+                font-size: 1.5rem;
+            }
+
+            .project-info p {
+                font-size: 0.85rem;
+            }
+        }
+
+        .main__content {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .main__img--container img {
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .footer {
+            background: rgba(19, 19, 19, 0.8); /* Translucent background */
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            overflow: hidden;
+            padding-top: 80px; /* Added padding to offset the fixed navbar */
+            font-family: "Playfair Display", serif;
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add shadow for effect */
+        }
+
+        /* Limit words per line inside project circles */
+
+
+.overlay {
+    position: absolute;
+    top: 50;
+    left: 50;
+    width: 80%;
+    height: 80%;
+    background-color: rgba(0, 0, 0, 0.5); /* Translucent black */
+    border-radius: 40%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 5; /* Ensure it appears above the background images */
+}
+
+.project-blob:hover .overlay {
+    opacity: 1; /* Show the overlay on hover */
+}
+
+.project-blob-content {
+    position: relative;
+    z-index: 10; /* Ensure content appears above the overlay */
+}
+
+/* Center everything and adjust button styles */
+.project-blob-content h3 {
+    margin-bottom: 0;
+    font-size: 1.4rem; /* Slightly reduced font size for better fit */
+    font-weight: 700;
+    z-index: 10;
+    position: relative;
+    text-align: center;
+    padding: 0 10px;
+    word-wrap: break-word; /* Ensures long words break to the next line */
+}
+
+.project-blob-content .github-btn {
+    display: inline-block;
+    margin: 0 auto;
+    background-color: #9492de;
+    color: #fff;
+    padding: 10px 0px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+    margin-top: 15px;
+}
+
+.project-blob-content .github-btn:hover {
+    background-color: #4837ff;
+}
+
+/* Mobile Menu Toggle */
+.navbar__toggle {
+    display: none;
+    cursor: pointer;
+    z-index: 1000; /* Ensure the toggle button is above other elements */
+}
+
+.navbar__toggle .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #fff;
+}
+
+.navbar__toggle.is-active .bar:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.navbar__toggle.is-active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar__toggle.is-active .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.navbar__menu.active {
+    display: block;
+    position: absolute;
+    top: 80px;
+    right: 0;
+    background-color: #131313;
+    width: 100%;
+    text-align: right;
+    flex-direction: column;
+}
+
+.navbar__menu.active .navbar__item {
+    width: 100%;
+}
+
+.navbar__menu.active .navbar__links {
+    display: block;
+    padding: 20px 30px;
+    text-align: right;
+}
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="#home" id="navbar__logo"><i class="fa-solid fa-headset"></i> GRACE ZHANG</a>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="#home" class="navbar__links">Home</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="#about" class="navbar__links">About</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="#resume" class="navbar__links">Resume</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="#projects" class="navbar__links">Projects</a>
+                </li>
+                <li class="navbar__btn">
+                    <a href="#contact" class="button">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="main home">
+        <canvas id="constellation" class="stars"></canvas>
+        <div class="main__container">
+            <div class="main__content">
+                <h1>GRACE ZHANG</h1>
+                <button class="resume-btn" style="margin-top: 20px; background: #9492de; color: #fff; padding: 8px 16px; border-radius: 4px;">
+                    <a href=#projects style="color: #fff; text-decoration: none;">Explore My Work</a>
+                </button>
+            </div>
+            <div class="main__img--container">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="main">
+        <canvas class="stars"></canvas>
+        <div class="main__container">
+            <div class="main__content about__content">
+                <h1>About Me</h1>
+                <p>Hello! My name is Grace Zhang, and I'm a third-year Electrical and Computer Engineering student at the University of Toronto, also pursuing a minor in Robotics. I am deeply passionate about robotics and biomedical engineering, and I am eager to explore the potential of technology to create impactful solutions. When I'm not studying, you can find me diving into the latest tech trends, competing in robotics competitions, or collaborating on innovative projects.</p>
+            </div>
+            <div class="main__img--container">
+                <img src="images/me.jpeg" alt="Grace's Photo" id="main_img_about" class="slide-in" />
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Resume Section -->
+    <section id="resume" class="main">
+        <canvas class="stars"></canvas>
+        <div class="main__container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh;">
+            <div class="main__content">
+                <h2>Resume/Skills</h2>
+            </div>
+            
+            <div class="key-container" style="display: flex; justify-content: center; margin-bottom: 30px;">
+                <div class="key-item" style="margin: 0 15px;">
+                    <div style="width: 30px; height: 30px; background-color: rgba(148, 146, 222, 0.8); border-radius: 50%; display: inline-block;"></div>
+                    <span style="margin-left: 10px;">Proficient</span>
+                </div>
+                <div class="key-item" style="margin: 0 15px;">
+                    <div style="width: 30px; height: 30px; background-color: rgba(72, 55, 255, 0.8); border-radius: 50%; display: inline-block;"></div>
+                    <span style="margin-left: 10px;">Intermediate</span>
+                </div>
+                <div class="key-item" style="margin: 0 15px;">
+                    <div style="width: 30px; height: 30px; background-color: rgba(255, 129, 119, 0.8); border-radius: 50%; display: inline-block;"></div>
+                    <span style="margin-left: 10px;">Beginner</span>
+                </div>
+            </div>
+            
+            <h3 class="skills-title">Programming Languages -></h3>
+            <div class="skills-container" style="display: flex; overflow-x: auto; white-space: nowrap; padding: 10px 0; width: 100%; margin-bottom: 20px;">
+                <div class="skills-box" data-level="proficient">Python</div>
+                <div class="skills-box" data-level="intermediate">JavaScript</div>
+                <div class="skills-box" data-level="proficient">C++</div>
+                <div class="skills-box" data-level="proficient">C</div>
+                <div class="skills-box" data-level="intermediate">SQL</div>
+                <div class="skills-box" data-level="proficient">Assembly</div>
+                <div class="skills-box" data-level="proficient">Verilog</div>
+                <div class="skills-box" data-level="intermediate">HTML</div>
+                <div class="skills-box" data-level="intermediate">CSS</div>
+                <div class="skills-box" data-level="intermediate">LaTeX</div>
+            </div>
+
+            <h3 class="skills-title">Tools & Technologies -></h3>
+            <div class="skills-container" style="display: flex; overflow-x: auto; white-space: nowrap; padding: 10px 0; width: 100%; margin-bottom: 20px;">
+                <div class="skills-box" data-level="beginner">Play</div>
+                <div class="skills-box" data-level="intermediate">React</div>
+                <div class="skills-box" data-level="beginner">Next.js</div>
+                <div class="skills-box" data-level="intermediate">Rhino7</div>
+                <div class="skills-box" data-level="beginner">Fusion360</div>
+                <div class="skills-box" data-level="beginner">BeautifulSoup</div>
+                <div class="skills-box" data-level="beginner">NLTK</div>
+                <div class="skills-box" data-level="intermediate">Altium</div>
+                <div class="skills-box" data-level="intermediate">MultiSim</div>
+            </div>
+            
+            <button class="resume-btn" style="margin-top: 20px; background: #9492de; color: #fff; padding: 8px 16px; border-radius: 4px;">
+                <a href="Grace_Zhang_Resume.pdf" download style="color: #fff; text-decoration: none;">Download Full Resume</a>
+            </button>
+        </div>
+    </section>
+    
+ <!-- Projects Section -->
+ <section id="projects" class="projects">
+    <canvas class="stars"></canvas>
+    <h2>Projects -></h2>
+    <div class="projects__scroll-container">
+        <div class="projects__row">
+            <div class="project-blob project-blob-1">
+                <div class="overlay"></div>
+                <span></span>
+                <span></span>
+                <span></span>
+                <div class="content-background"></div>
+                <div class="project-blob-content">
+                    <h3>Assembly Filler Game</h3>
+                    <p>This project involved creating a game that imitates the classic "Filler" using assembly language on a DE1-SoC board. The game logic and graphics were implemented in assembly, providing a deep understanding of low-level programming.</p>
+                    <a href="https://github.com/luna49/assembly-filler-game" target="_blank" class="github-btn">View on GitHub</a>
+                </div>
+            </div>
+            <div class="project-blob project-blob-2">
+                <div class="overlay"></div>
+                <span></span>
+                <span></span>
+                <span></span>
+                <div class="content-background"></div>
+                <div class="project-blob-content">
+                    <h3>Local Oscillator and User/Computer Interface</h3>
+                    <p>This project developed the Local Oscillator and User/Computer Interface for a flexible radio transceiver. The interface was implemented using Python, enabling users to easily control and adjust the transceiver's settings.</p>
+                </div>
+            </div>
+            <div class="project-blob project-blob-3">
+                <div class="overlay"></div>
+                <span></span>
+                <span></span>
+                <span></span>
+                <div class="content-background"></div>
+                <div class="project-blob-content">
+                    <h3>3D Renderer</h3>
+                    <p>This project developed a 3D renderer using Verilog on the DE1-SoC board with VGA display. The renderer could process and display simple 3D shapes, providing an understanding of 3D graphics and hardware programming.</p>
+                    <a href="https://github.com/charleshenville/verilog-gpu" target="_blank" class="github-btn">View on GitHub</a>
+                </div>
+            </div>
+            <div class="project-blob project-blob-4">
+                <div class="overlay"></div>
+                <span></span>
+                <span></span>
+                <span></span>
+                <div class="content-background"></div>
+                <div class="project-blob-content">
+                    <h3>Heartbeat Audio Monitor</h3>
+                    <p>This ongoing project focuses on developing a deep learning model to classify heartbeat sounds as normal or abnormal. The project aims to assist in early diagnosis of cardiac conditions.</p>
+                    <a href="https://github.com/yu1uuu/Audio-Heartbeat-Monitor" target="_blank" class="github-btn">View on GitHub</a>
+                </div>
+            </div>
+            <div class="project-blob project-blob-5">
+                <div class="overlay"></div>
+                <span></span>
+                <span></span>
+                <span></span>
+                <div class="content-background"></div>
+                <div class="project-blob-content">
+                    <h3>Line Tracking Robot</h3>
+                    <p>This project involves developing a line tracking robot using Arduino and sensor technology. The robot is capable of following a line on the ground, making it a great introduction to robotics and sensor integration.</p>
+                    <a href= "https://github.com/Gracezhang3/line-tracking-robot" target="_blank" class="github-btn">View on GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    
+
+    <!-- Contact Section (Footer) -->
+    <footer id="contact" class="footer">
+        <canvas class="stars"></canvas>
+        <p>Connect with me on</p>
+                <a href="https://www.linkedin.com/in/gracer-zhang/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+        <a href="https://github.com/Gracezhang3" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+
+
+        <form class="contact__form" id="contact-form" action="https://formspree.io/f/meojovll" method="POST">
+            <label>
+                Your email:
+                <input type="email" name="email" required>
+            </label>
+            <label>
+                Your message:
+                <textarea name="message" required></textarea>
+            </label>
+            <button type="submit">Send</button>
+        </form>
+        <p class="success-message" id="success-message">Email sent successfully!</p>
+    </footer>
+
+    <script>
+        function createStars(canvas) {
+            const ctx = canvas.getContext('2d');
+            let stars = [];
+            const numStars = 100;
+            const width = canvas.width = window.innerWidth;
+            const height = canvas.height = window.innerHeight;
+
+            for (let i = 0; i < numStars; i++) {
+                stars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 1.5 + 0.5,
+                    dx: (Math.random() - 0.5) * 0.5,
+                    dy: (Math.random() - 0.5) * 0.5
+                });
+            }
+
+            function drawStars() {
+                ctx.clearRect(0, 0, width, height);
+                ctx.fillStyle = '#fff';
+                ctx.beginPath();
+                stars.forEach(star => {
+                    ctx.moveTo(star.x, star.y);
+                    ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                });
+                ctx.fill();
+                drawConstellations();
+            }
+
+            function updateStars() {
+                stars.forEach(star => {
+                    star.x += star.dx;
+                    star.y += star.dy;
+
+                    if (star.x < 0 || star.x > width) star.dx *= -1;
+                    if (star.y < 0 || star.y > height) star.dy *= -1;
+                });
+            }
+
+            function drawConstellations() {
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 0.2;
+                ctx.beginPath();
+                for (let i = 0; i < stars.length; i++) {
+                    for (let j = i + 1; j < stars.length; j++) {
+                        const distance = Math.sqrt((stars[i].x - stars[j].x) ** 2 + (stars[i].y - stars[j].y) ** 2);
+                        if (distance < 100) {
+                            ctx.moveTo(stars[i].x, stars[i].y);
+                            ctx.lineTo(stars[j].x, stars[j].y);
+                        }
+                    }
+                }
+                ctx.stroke();
+            }
+
+            function animate() {
+                updateStars();
+                drawStars();
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+
+            // Handle window resize to adjust the canvas
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                drawStars();
+            });
+        }
+
+        document.querySelectorAll('canvas.stars').forEach(createStars);
+
+        const contactForm = document.getElementById('contact-form');
+        const successMessage = document.getElementById('success-message');
+
+        contactForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(contactForm);
+
+            fetch(contactForm.action, {
+                method: contactForm.method,
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    successMessage.style.display = 'block';
+                    contactForm.reset();
+                } else {
+                    alert('Error sending message. Please try again.');
+                }
+            }).catch(error => {
+                alert('Error sending message. Please try again.');
+            });
+        });
+
+        // Function to check if an element is in the viewport
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        // Add scroll event listener to show elements when they are in viewport
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('.main__img--container img').forEach((el) => {
+                if (isElementInViewport(el)) {
+                    el.classList.add('show');
+                    el.classList.remove('slide-in', 'slide-out');
+                } else {
+                    el.classList.add('slide-out');
+                    el.classList.remove('show', 'slide-in');
+                }
+            });
+        });
+
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.main__img--container img').forEach((el) => {
+                el.classList.add('slide-in');
+            });
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navbarMenu = document.querySelector('.navbar__menu');
+
+        mobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('is-active');
+            navbarMenu.classList.toggle('active');
+        });
+    </script>
+    <script>
+        document.querySelectorAll('.project-blob-content p').forEach(paragraph => {
+            let words = paragraph.innerHTML.split(' ');
+            for (let i = 5; i < words.length; i += 6) {
+                words[i] = '<br>' + words[i];
+            }
+            paragraph.innerHTML = words.join(' ');
+        });
+    </script>
+    <script>
+        document.querySelectorAll('.project-blob-content h3').forEach(paragraph => {
+            let words = paragraph.innerHTML.split(' ');
+            for (let i = 4; i < words.length; i += 5) {
+                words[i] = '<br>' + words[i];
+            }
+            paragraph.innerHTML = words.join(' ');
+        });
+    </script>
+</body>
+</html>
