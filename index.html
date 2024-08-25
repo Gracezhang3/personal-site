@@ -548,11 +548,23 @@
     }
 
     .projects__scroll-container {
-        width: 100%;
-        overflow-x: auto;
-        white-space: nowrap;
-        text-align: center; /* Center the project blobs */
-    }
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 0;
+    width: 100%;
+    scrollbar-width: thin; /* for Firefox */
+    scrollbar-color: #9492de #141414; /* thumb and track color */
+}
+
+.projects__scroll-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.projects__scroll-container::-webkit-scrollbar-thumb {
+    background-color: #9492de;
+    border-radius: 10px;
+}
 
     .projects__row {
         display: flex;
